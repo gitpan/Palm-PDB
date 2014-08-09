@@ -1,4 +1,4 @@
-Palm-PDB version 1.014, released July 26, 2014
+Palm-PDB version 1.015, released August 9, 2014
 
 This distribution contains Palm::PDB and Palm::Raw, a pair of Perl 5
 modules for reading, manipulating, and writing the .pdb and .prc
@@ -24,15 +24,10 @@ To install this module, run the following commands:
 
 
 CHANGES
-    Here's what's new in version 1.014 of Palm-PDB:
+    Here's what's new in version 1.015 of Palm-PDB:
     (See the file "Changes" for the full revision history.)
 
-	- New maintainer Christopher J. Madsen
-	- Palm::PDB & Palm::Raw are now distributed separately from
-	  the other Palm modules
-	- With permission from Andrew Arensburger & Alessandro Zummo
-	  Palm-PDB is now distributed under the same terms as Perl 5
-	- Constant variables in Palm::PDB are now proper constants
+	- Minor documentation improvements
 
 
 

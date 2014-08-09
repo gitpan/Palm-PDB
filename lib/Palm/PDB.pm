@@ -27,14 +27,13 @@ package Palm::PDB;
 use strict;
 use vars qw( $VERSION %PDBHandlers %PRCHandlers );
 
-# One liner, to allow MakeMaker to work.
-$VERSION = '1.014';
-# This file is part of Palm-PDB 1.014 (July 26, 2014)
+$VERSION = '1.015';
+# This file is part of Palm-PDB 1.015 (August 9, 2014)
 
 # ABSTRACT: Parse Palm database files
 
 
-use constant {
+use constant 1.03 { # accepts hash reference
   dmRecordIDReservedRange => 1,		# The range of upper bits in the database's
 					# uniqueIDSeed from 0 to this number are
 					# reserved and not randomly picked when a
@@ -1259,9 +1258,9 @@ Palm::PDB - Parse Palm database files
 
 =head1 VERSION
 
-This document describes version 1.014 of
-Palm::PDB, released July 26, 2014
-as part of Palm-PDB version 1.014.
+This document describes version 1.015 of
+Palm::PDB, released August 9, 2014
+as part of Palm-PDB version 1.015.
 
 =head1 SYNOPSIS
 
@@ -1364,19 +1363,19 @@ Class MyClass will handle:
 
 =over 4
 
-=item Z<>
+=item *
 
 Databases whose creator is C<fOOf> and whose type is C<DATA>.
 
-=item Z<>
+=item *
 
 Databases whose creator is C<BarB>, of any type.
 
-=item Z<>
+=item *
 
 Databases with any creator whose type is C<BazQ>.
 
-=item Z<>
+=item *
 
 Databases whose creator is C<Fred>, of any type.
 
@@ -1417,7 +1416,7 @@ A class for parsing applications should begin with:
 
 Reads the file C<$filename>, parses it, reblesses $pdb to the
 appropriate class, and invokes appropriate methods to parse the
-application-specific parts of the database (see L</HELPER CLASSES>).
+application-specific parts of the database (see L</HELPER CLASS METHODS>).
 
 C<$filename> may also be an open file handle (as long as it's
 seekable). This allows for manipulating databases in memory structures.
@@ -1580,24 +1579,18 @@ Write() uses the following helper methods:
 
 =over
 
-=item Z<>
+=item PackAppInfoBlock()
 
-PackAppInfoBlock()
+=item PackSortBlock()
 
-=item Z<>
-
-PackSortBlock()
-
-=item Z<>
-
-PackResource() or PackRecord()
+=item PackResource() or PackRecord()
 
 =back
 
 =for html </DL>
 <!-- Grrr... pod2html is broken, and doesn't terminate the list correctly -->
 
-See also L</HELPER CLASSES>.
+See also L</HELPER CLASS METHODS>.
 
 =head2 new_Record
 
@@ -1687,7 +1680,7 @@ This method updates $pdb's "last modification" time.
 
 =head2 remove_Record
 
-	for (@{$pdb->{'records'}Z<>})
+	for (@{ $pdb->{'records'} })
 	{
 		$pdb->remove_Record( $_ ) if $_->{attributes}{deleted};
 	}
@@ -1697,14 +1690,14 @@ in that it's an actual deletion rather than just setting a flag.
 
 This method updates $pdb's "last modification" time.
 
-=head1 HELPER CLASSES
+=head1 HELPER CLASS METHODS
 
-$pdb->Load() reblesses $pdb into a new class. This helper class is
+C<< $pdb->Load() >> reblesses C<$pdb> into a new class. This helper class is
 expected to convert raw data from the database into parsed
 representations of it, and vice-versa.
 
 A helper class must have all of the methods listed below. The
-Palm::Raw class is useful if you don't want to define all of the
+L<Palm::Raw> class is useful if you don't want to define all of the
 required methods.
 
 
@@ -1712,7 +1705,7 @@ required methods.
 
   $appinfo = $pdb->ParseAppInfoBlock($buf);
 
-$buf is a string of raw data. ParseAppInfoBlock() should parse this
+C<$buf> is a string of raw data. ParseAppInfoBlock() should parse this
 data and return it, typically in the form of a reference to an object
 or to an anonymous hash.
 
@@ -1720,21 +1713,21 @@ This method will not be called if the database does not have an
 AppInfo block.
 
 The return value from ParseAppInfoBlock() will be accessible as
-$pdb->{appinfo}.
+C<< $pdb->{appinfo} >>.
 
 =head2 PackAppInfoBlock
 
   $buf = $pdb->PackAppInfoBlock();
 
-This is the converse of ParseAppInfoBlock(). It takes $pdb's AppInfo
-block, $pdb->{appinfo}, and returns a string of binary data
+This is the converse of ParseAppInfoBlock(). It takes C<$pdb>'s AppInfo
+block, C<< $pdb->{appinfo} >>, and returns a string of binary data
 that can be written to the database file.
 
 =head2 ParseSortBlock
 
   $sort = $pdb->ParseSortBlock($buf);
 
-$buf is a string of raw data. ParseSortBlock() should parse this data
+C<$buf> is a string of raw data. ParseSortBlock() should parse this data
 and return it, typically in the form of a reference to an object or to
 an anonymous hash.
 
@@ -1742,14 +1735,14 @@ This method will not be called if the database does not have a sort
 block.
 
 The return value from ParseSortBlock() will be accessible as
-$pdb->{sort}.
+C<< $pdb->{sort} >>.
 
 =head2 PackSortBlock
 
   $buf = $pdb->PackSortBlock();
 
-This is the converse of ParseSortBlock(). It takes $pdb's sort block,
-$pdb->{sort}, and returns a string of raw data that can be
+This is the converse of ParseSortBlock(). It takes C<$pdb>'s sort block,
+C<< $pdb->{sort} >>, and returns a string of raw data that can be
 written to the database file.
 
 =head2 ParseRecord
@@ -1774,16 +1767,16 @@ representation of the record, typically as a reference to a record
 object or anonymous hash.
 
 The output from ParseRecord() will be appended to
-@{$pdb->{records}Z<>}. The records appear in this list in the
+C<< @{$pdb->{records}Z<>} >>. The records appear in this list in the
 same order as they appear in the file.
 
-$offset argument is not normally useful, but is included for
+C<$offset> argument is not normally useful, but is included for
 completeness.
 
-The fields in %$attributes are boolean values. They are true iff the
+The fields in C<%$attributes> are boolean values. They are true iff the
 record has the corresponding flag set.
 
-$category is an integer in the range 0-15, which indicates which
+C<$category> is an integer in the range 0-15, which indicates which
 category the record belongs to. This is normally an index into a table
 given at the beginning of the AppInfo block.
 
@@ -1825,7 +1818,7 @@ representation of the resource, typically as a reference to a resource
 object or anonymous hash.
 
 The output from ParseResource() will be appended to
-@{$pdb->{resources}Z<>}. The resources appear in this list in
+C<< @{$pdb->{resources}Z<>} >>. The resources appear in this list in
 the same order as they appear in the file.
 
 $type is a four-character string giving the resource's type.
@@ -1844,12 +1837,6 @@ returned by PackResource() and returns a string of raw data that can
 be written to the database file.
 
 PackResource() is never called when writing a record database.
-
-=head1 SOURCE CONTROL
-
-The source is in GitHub:
-
-	https://github.com/madsen/Palm-PDB
 
 =head1 SEE ALSO
 
@@ -1886,11 +1873,19 @@ Database manipulation is still an arcane art.
 
 It may be possible to parse sort blocks further.
 
-=head1 AUTHOR
+=head1 AUTHORS
 
-Alessandro Zummo, C<< <a.zummo@towertech.it> >>
+Andrew Arensburger C<< <arensb AT ooblick.com> >>
 
-Currently maintained by Christopher J. Madsen, C<< <perl@cjmweb.net> >>
+Currently maintained by Christopher J. Madsen C<< <perl AT cjmweb.net> >>
+
+Please report any bugs or feature requests
+to S<C<< <bug-Palm-PDB AT rt.cpan.org> >>>
+or through the web interface at
+L<< http://rt.cpan.org/Public/Bug/Report.html?Queue=Palm-PDB >>.
+
+You can follow or contribute to Palm-PDB's development at
+L<< https://github.com/madsen/Palm-PDB >>.
 
 =head1 COPYRIGHT AND LICENSE
 

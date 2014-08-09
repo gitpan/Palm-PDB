@@ -28,7 +28,7 @@
       },
       "runtime" : {
          "requires" : {
-            "constant" : "0",
+            "constant" : "1.03",
             "vars" : "0"
          }
       },
@@ -46,7 +46,7 @@
          "web" : "https://github.com/madsen/Palm-PDB"
       }
    },
-   "version" : "1.014",
+   "version" : "1.015",
    "x_Dist_Zilla" : {
       "perl" : {
          "version" : "5.018002"
@@ -90,7 +90,7 @@
          {
             "class" : "Dist::Zilla::Plugin::Test::PrereqsFromMeta",
             "name" : "CJM/Test::PrereqsFromMeta",
-            "version" : "4.21"
+            "version" : "4.23"
          },
          {
             "class" : "Dist::Zilla::Plugin::PodSyntaxTests",
@@ -203,7 +203,7 @@
                "Dist::Zilla::Plugin::Git::Tag" : {
                   "branch" : null,
                   "signed" : 0,
-                  "tag" : "1.014",
+                  "tag" : "1.015",
                   "tag_format" : "%v%t",
                   "tag_message" : "Tagged %N %v%{ (trial release)}t",
                   "time_zone" : "local"

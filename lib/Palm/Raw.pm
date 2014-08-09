@@ -22,9 +22,8 @@ use strict;
 use Palm::PDB;
 use vars qw( $VERSION @ISA );
 
-# One liner, to allow MakeMaker to work.
-$VERSION = '1.014';
-# This file is part of Palm-PDB 1.014 (July 26, 2014)
+$VERSION = '1.015';
+# This file is part of Palm-PDB 1.015 (August 9, 2014)
 
 @ISA = qw( Palm::PDB );
 
@@ -116,9 +115,9 @@ Palm::Raw - Handler for "raw" Palm databases
 
 =head1 VERSION
 
-This document describes version 1.014 of
-Palm::Raw, released July 26, 2014
-as part of Palm-PDB version 1.014.
+This document describes version 1.015 of
+Palm::Raw, released August 9, 2014
+as part of Palm-PDB version 1.015.
 
 =head1 SYNOPSIS
 
@@ -192,12 +191,6 @@ Each element in the "resources" array is a reference-to-hash. In
 addition to the standard keys ("type" and "id"), it contains the key
 "data"; its value is a string with the raw resource data.
 
-=head1 SOURCE CONTROL
-
-The source is in GitHub:
-
-	https://github.com/madsen/Palm-PDB
-
 =head1 SEE ALSO
 
 L<Palm::PDB>
@@ -214,11 +207,19 @@ None reported.
 
 No bugs have been reported.
 
-=head1 AUTHOR
+=head1 AUTHORS
 
-Alessandro Zummo, C<< <a.zummo@towertech.it> >>
+Andrew Arensburger C<< <arensb AT ooblick.com> >>
 
-Currently maintained by Christopher J. Madsen, C<< <perl@cjmweb.net> >>
+Currently maintained by Christopher J. Madsen C<< <perl AT cjmweb.net> >>
+
+Please report any bugs or feature requests
+to S<C<< <bug-Palm-PDB AT rt.cpan.org> >>>
+or through the web interface at
+L<< http://rt.cpan.org/Public/Bug/Report.html?Queue=Palm-PDB >>.
+
+You can follow or contribute to Palm-PDB's development at
+L<< https://github.com/madsen/Palm-PDB >>.
 
 =head1 COPYRIGHT AND LICENSE
 

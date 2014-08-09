@@ -21,13 +21,13 @@ my %WriteMakefileArgs = (
   "LICENSE" => "perl",
   "NAME" => "Palm::PDB",
   "PREREQ_PM" => {
-    "constant" => 0,
+    "constant" => "1.03",
     "vars" => 0
   },
   "TEST_REQUIRES" => {
     "Test::More" => 0
   },
-  "VERSION" => "1.014",
+  "VERSION" => "1.015",
   "test" => {
     "TESTS" => "t/*.t"
   }
@@ -36,7 +36,7 @@ my %WriteMakefileArgs = (
 
 my %FallbackPrereqs = (
   "Test::More" => 0,
-  "constant" => 0,
+  "constant" => "1.03",
   "vars" => 0
 );
 
